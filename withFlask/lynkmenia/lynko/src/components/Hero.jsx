@@ -18,19 +18,22 @@ function Hero() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
       const response = await axios.post('/download', {
         url: url,
         mode: mode,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
       });
       console.log('Success:', response.data);
-      // Handle success (e.g., display a message or process response)
     } catch (error) {
       console.error('Error:', error);
-      // Handle error (e.g., display an error message)
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center h-[80vh] border-b border-neutral-900">
