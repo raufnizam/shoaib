@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloader</title>
+
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Google Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+<body class="font-inter">
+    <div class="overflow-hidden text-neutral-300 antialiased selection:bg-cyan-300 selection:text-cyan-900">
+        <div class="fixed top-0 -z-10 h-full w-full">
+            <div class="relative h-full w-full bg-black">
+                <div class="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+            </div>
+        </div>
+        <div class="container mx-auto px-8">
+           {% block content %}
+           {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

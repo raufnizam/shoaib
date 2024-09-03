@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="border-b flex-wrap border-neutral-900 h-[50vh] flex flex-col items-center justify-center">
+    <h2 class="text-center text-4xl mb-6">
+        Get In Touch
+    </h2>
+    <div class="text-center tracking-tighter">
+        <p class="my-4">
+            {{ CONTACT.phoneNo }}
+        </p>
+        <a href="#" class="my-4 border-b border-neutral-500 hover:border-neutral-900">
+            {{ CONTACT.email }}
+        </a>
+    </div>
+</div>
+{% endblock %}

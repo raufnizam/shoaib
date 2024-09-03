@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Video/Audio/Playlist Downloader</h1>
+    <form method="POST" action="{% url 'download' %}" class="space-y-4">
+        {% csrf_token %}
+        <div>
+            <label for="url" class="block text-lg">URL:</label>
+            <input type="text" name="url" id="url" required class="w-full p-2 border rounded">
+        </div>
+        <div>
+            <label for="mode" class="block text-lg">Mode:</label>
+            <select name="mode" id="mode" class="w-full p-2 border rounded">
+                <option value="video">Video</option>
+                <option value="audio">Audio</option>
+                <option value="playlist">Playlist</option>
+            </select>
+        </div>
+        <button type="submit" class="bg-purple-600 text-white p-2 rounded hover:bg-blue-600">Download</button>
+    </form>
+</div>
+{% endblock %}
