@@ -24,9 +24,13 @@ def index(request):
 def download(request):
     url = request.POST.get('url')
     mode = request.POST.get('mode')
-    cookie_path = './www.youtube.com_cookies.txt'  # Path to your cookies file
 
-    info_command = f"yt-dlp --cookies {cookie_path} --dump-json {url}"
+    # Convert cookies from the request to a cookie header string
+    cookies = request.COOKIES
+    cookie_header = '; '.join([f"{key}={value}" for key, value in cookies.items()])
+    print(cookie_header)
+
+    info_command = f"yt-dlp --add-header 'Cookie:{cookie_header}' --dump-json {url}"
 
     try:
         info_process = subprocess.Popen(info_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -40,11 +44,11 @@ def download(request):
         video_extension = video_info.get('ext', 'mp4')
 
         if mode == "video":
-            command = f"yt-dlp --cookies {cookie_path} -o - {url} --add-header 'User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36' --add-header 'Accept-Language:en-US,en;q=0.9'"
+            command = f"yt-dlp --add-header 'Cookie:{cookie_header}' -o - {url} --add-header 'User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36' --add-header 'Accept-Language:en-US,en;q=0.9'"
         elif mode == "audio":
-            command = f"yt-dlp --cookies {cookie_path} --extract-audio --audio-format mp3 -o - {url}"
+            command = f"yt-dlp --add-header 'Cookie:{cookie_header}' --extract-audio --audio-format mp3 -o - {url}"
         elif mode == "playlist":
-            command = f"yt-dlp --cookies {cookie_path} -i -o - {url}"
+            command = f"yt-dlp --add-header 'Cookie:{cookie_header}' -i -o - {url}"
         else:
             return JsonResponse({"error": "Invalid mode specified. Use 'video', 'audio', or 'playlist'."})
 
